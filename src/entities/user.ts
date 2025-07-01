@@ -1,7 +1,7 @@
 import { Entity } from "src/cors/entity";
 
 interface UserProps {
-  id: string;
+  id?: string;
   name: string;
   email: string;
   password: string;
