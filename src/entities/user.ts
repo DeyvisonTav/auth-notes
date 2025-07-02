@@ -1,4 +1,5 @@
 import { Entity } from "../cors/entity";
+import { Notes } from "./notes";
 
 interface UserProps {
   id?: string;
@@ -7,11 +8,20 @@ interface UserProps {
   password: string;
   createdAt: Date;
   updatedAt: Date;
+  notes?: Notes[];
 }
 
 export class User extends Entity<UserProps> {
   get name(): string {
     return this.props.name;
+  }
+
+  get notes(): Notes[] {
+    return this.props.notes ?? [];
+  }
+
+  set notes(value: Notes[]) {
+    this.props.notes = value;
   }
 
   get email(): string {
