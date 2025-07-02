@@ -1,4 +1,4 @@
-import { Entity } from "src/cors/entity";
+import { Entity } from "../cors/entity";
 
 interface NotesProps {
   id?: string;
@@ -6,6 +6,7 @@ interface NotesProps {
   content: string;
   createdAt: Date | null;
   updatedAt: Date | null;
+  userId: string;
 }
 
 export class Notes extends Entity<NotesProps> {
@@ -15,6 +16,10 @@ export class Notes extends Entity<NotesProps> {
 
   get content(): string {
     return this.props.content;
+  }
+
+  get userId(): string {
+    return this.props.userId;
   }
 
   static create(props: Omit<NotesProps, 'createdAt' | 'updatedAt'>, id?: string) {

@@ -1,5 +1,5 @@
-import { User } from "src/entities/user";
-import { UserRepository } from "src/repositories/user-repository";
+import { User } from "../../entities/user";
+import { UserRepository } from "../../repositories/user-repository";
 
 interface FindByIdUserRequest {
   id: string

@@ -1,0 +1,27 @@
+import { InMemoryUserRepository } from "../../repositories/test/in-memory-user-repository";
+import { CreateUser } from "./create-user";
+import { DeleteUser } from "./delete-user";
+import { FindByIdUser } from "./find-by-id-user";
+
+let inMemoryUserRepository: InMemoryUserRepository;
+let findByIdUser: FindByIdUser;
+let createUser: CreateUser;
+let sut: DeleteUser;
+
+describe("Delete User", () => {
+  beforeEach(() => {
+    inMemoryUserRepository = new InMemoryUserRepository();
+    createUser = new CreateUser(inMemoryUserRepository);
+    findByIdUser = new FindByIdUser(inMemoryUserRepository);
+    sut = new DeleteUser(inMemoryUserRepository);
+  })
+  it("Should be able to delete a user and not find it", async () => {
+    const user = await createUser.execute({
+      name: "John Doe",
+      email: "test@test.com",
+      password: "123456",
+    });
+    await sut.execute({ id: user.user.id });
+    await expect(findByIdUser.execute({ id: user.user.id })).rejects.toThrow("User not found");
+  })
+})

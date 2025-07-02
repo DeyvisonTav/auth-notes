@@ -1,5 +1,6 @@
-import { User } from "src/entities/user";
-import { UserRepository } from "src/repositories/user-repository";
+import { User } from "../../entities/user";
+import { UserRepository } from "../../repositories/user-repository";
+import { hash } from "bcrypt";
 
 interface CreateUserRequest {
   name: string;
@@ -15,10 +16,11 @@ export class CreateUser {
   constructor(private userRepository: UserRepository) { }
 
   async execute({ email, name, password }: CreateUserRequest): Promise<CreateUserResponse> {
+    const passwordHash = await hash(password, 6);
     const _user = User.create({
       name,
       email,
-      password,
+      password: passwordHash,
     })
     const user = await this.userRepository.create(_user);
 

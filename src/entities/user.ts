@@ -1,4 +1,4 @@
-import { Entity } from "src/cors/entity";
+import { Entity } from "../cors/entity";
 
 interface UserProps {
   id?: string;

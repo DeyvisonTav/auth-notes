@@ -1,4 +1,4 @@
-import { Notes } from "src/entities/notes";
+import { Notes } from "../../entities/notes";
 import { NotesRepository } from "../notes-repository";
 
 export class InMemoryNotesRepository extends NotesRepository {

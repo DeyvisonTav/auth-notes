@@ -1,4 +1,4 @@
-import { Notes } from "src/entities/notes";
+import { Notes } from "../entities/notes";
 
 export abstract class NotesRepository {
   abstract create(notes: Notes): Promise<Notes>;

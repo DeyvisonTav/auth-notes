@@ -1,5 +1,5 @@
-import { Notes } from "src/entities/notes";
-import { NotesRepository } from "src/repositories/notes-repository";
+import { Notes } from "../../entities/notes";
+import { NotesRepository } from "../../repositories/notes-repository";
 
 interface FindByIdNotesRequest {
   id: string;
