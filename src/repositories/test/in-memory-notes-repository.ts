@@ -22,4 +22,13 @@ export class InMemoryNotesRepository extends NotesRepository {
   async delete(id: string): Promise<void> {
     this.notes = this.notes.filter(note => note.id !== id);
   }
+
+  async findByUserId(userId: string): Promise<Notes[] | null> {
+    const notes = this.notes.filter(note => note.userId === userId) ?? null;
+    return notes;
+  }
+
+  async findAll(): Promise<Notes[]> {
+    return this.notes;
+  }
 }

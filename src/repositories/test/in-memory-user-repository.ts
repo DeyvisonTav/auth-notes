@@ -27,4 +27,8 @@ export class InMemoryUserRepository extends UserRepository {
   async delete(id: string): Promise<void> {
     this.users = this.users.filter(user => user.id !== id);
   }
+
+  async findAll(): Promise<User[]> {
+    return this.users;
+  }
 }

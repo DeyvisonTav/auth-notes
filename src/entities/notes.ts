@@ -14,6 +14,15 @@ export class Notes extends Entity<NotesProps> {
     return this.props.title;
   }
 
+  set title(value: string) {
+    this.props.title = value;
+  }
+
+  set content(value: string) {
+    this.props.content = value;
+  }
+
+
   get content(): string {
     return this.props.content;
   }
