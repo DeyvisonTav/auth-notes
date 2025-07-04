@@ -1,6 +1,7 @@
 import { InMemoryUserRepository } from "../../repositories/test/in-memory-user-repository";
 import { FindByIdUser } from "./find-by-id-user";
 import { CreateUser } from "./create-user";
+import { UserErrors } from "../../errors/user";
 
 let inMemoryUserRepository: InMemoryUserRepository;
 let createUser: CreateUser;
@@ -22,5 +23,9 @@ describe("Find By Id User", () => {
     });
     const userFound = await sut.execute({ id: user.user.id });
     expect(userFound.user).toBeTruthy();
+  });
+
+  it("should not be able to find a user by id if the user does not exist", async () => {
+    await expect(sut.execute({ id: "123" })).rejects.toThrow(UserErrors.userNotFound('User not found', 404));
   });
 });

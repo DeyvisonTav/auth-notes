@@ -1,4 +1,5 @@
 import { User } from "../../entities/user";
+import { UserErrors } from "../../errors/user";
 import { UserRepository } from "../../repositories/user-repository";
 
 interface FindByIdUserRequest {
@@ -15,7 +16,7 @@ export class FindByIdUser {
     const user = await this.userRepository.findById(id);
 
     if (!user) {
-      throw new Error('User not found');
+      throw UserErrors.userNotFound('User not found', 404);
     }
 
     return {

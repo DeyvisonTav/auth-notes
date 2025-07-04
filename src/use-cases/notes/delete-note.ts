@@ -1,3 +1,4 @@
+import { NotesErrors } from "../../errors/notes";
 import { NotesRepository } from "../../repositories/notes-repository";
 
 interface DeleteNoteRequest {
@@ -11,7 +12,7 @@ export class DeleteNote {
     const note = await this.notesRepository.findById(id);
 
     if (!note) {
-      throw new Error('Note not found');
+      throw NotesErrors.noteNotFound('Note not found', 404);
     }
 
     await this.notesRepository.delete(id);

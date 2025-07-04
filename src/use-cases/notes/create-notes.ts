@@ -1,5 +1,7 @@
+import { UserRepository } from "../../repositories/user-repository";
 import { Notes } from "../../entities/notes";
 import { NotesRepository } from "../../repositories/notes-repository";
+import { NotesErrors } from "../../errors/notes";
 
 interface CreateNotesRequest {
   title: string;
@@ -12,9 +14,13 @@ interface CreateNotesResponse {
 }
 
 export class CreateNotes {
-  constructor(private notesRepository: NotesRepository) { }
+  constructor(private notesRepository: NotesRepository, private userRepository: UserRepository) { }
 
   async execute({ title, content, userId }: CreateNotesRequest): Promise<CreateNotesResponse> {
+    const user = await this.userRepository.findById(userId);
+    if (!user) {
+      throw NotesErrors.noteInvalidUserId('User not found', 404);
+    }
     const _notes = Notes.create({
       title,
       content,

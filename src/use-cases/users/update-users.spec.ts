@@ -2,6 +2,7 @@ import { InMemoryUserRepository } from "../../repositories/test/in-memory-user-r
 import { compare } from "bcrypt"
 import { CreateUser } from "./create-user"
 import { UpdateUsers } from "./update-users"
+import { UserErrors } from "../../errors/user";
 
 let inMemoryUserRepository: InMemoryUserRepository;
 let createUser: CreateUser;
@@ -39,6 +40,6 @@ describe('UpdateUsers', () => {
       name: 'John Doe 2',
       email: 'john.doe2@example.com',
       password: '123456789',
-    })).rejects.toThrow('User not found');
+    })).rejects.toThrow(UserErrors.userNotFound('User not found', 404));
   })
 })

@@ -15,7 +15,7 @@ describe('FindByIdNotes', () => {
   beforeEach(() => {
     inMemoryNotesRepository = new InMemoryNotesRepository();
     inMemoryUserRepository = new InMemoryUserRepository();
-    createNote = new CreateNotes(inMemoryNotesRepository);
+    createNote = new CreateNotes(inMemoryNotesRepository, inMemoryUserRepository);
     createUser = new CreateUser(inMemoryUserRepository);
     sut = new FindByIdNotes(inMemoryNotesRepository);
   });

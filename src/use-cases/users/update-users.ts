@@ -1,6 +1,7 @@
 import { User } from "../../entities/user";
 import { UserRepository } from "../../repositories/user-repository";
 import { hash } from "bcrypt";
+import { UserErrors } from "../../errors/user";
 
 interface UpdateUsersRequest {
   id: string;
@@ -19,7 +20,7 @@ export class UpdateUsers {
   async execute({ id, name, email, password }: UpdateUsersRequest): Promise<UpdateUsersResponse> {
     const user = await this.userRepository.findById(id);
     if (!user) {
-      throw new Error('User not found');
+      throw UserErrors.userNotFound('User not found', 404);
     }
 
     user.name = name;

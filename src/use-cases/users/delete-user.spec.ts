@@ -2,6 +2,7 @@ import { InMemoryUserRepository } from "../../repositories/test/in-memory-user-r
 import { CreateUser } from "./create-user";
 import { DeleteUser } from "./delete-user";
 import { FindByIdUser } from "./find-by-id-user";
+import { UserErrors } from "../../errors/user";
 
 let inMemoryUserRepository: InMemoryUserRepository;
 let findByIdUser: FindByIdUser;
@@ -22,6 +23,6 @@ describe("Delete User", () => {
       password: "123456",
     });
     await sut.execute({ id: user.user.id });
-    await expect(findByIdUser.execute({ id: user.user.id })).rejects.toThrow("User not found");
+    await expect(findByIdUser.execute({ id: user.user.id })).rejects.toThrow(UserErrors.userNotFound('User not found', 404));
   })
 })

@@ -1,6 +1,7 @@
 import { UserRepository } from "../../repositories/user-repository";
 import { compare } from "bcrypt";
 import { JwtService } from "./jwt.service";
+import { UserErrors } from "../../errors/user";
 
 interface AuthUsersRequest {
   email: string;
@@ -18,13 +19,13 @@ export class AuthUsers {
     const user = await this.userRepository.findByEmail(email);
 
     if (!user) {
-      throw new Error('User not found');
+      throw UserErrors.userNotFound('User not found', 404);
     }
 
     const isPasswordValid = await compare(password, user.password);
 
     if (!isPasswordValid) {
-      throw new Error('Invalid password');
+      throw UserErrors.userInvalidPassword('Invalid password', 401);
     }
     const payload = {
       sub: user.id,

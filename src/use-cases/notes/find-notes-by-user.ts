@@ -1,3 +1,4 @@
+import { NotesErrors } from "../../errors/notes";
 import { Notes } from "../../entities/notes";
 import { NotesRepository } from "../../repositories/notes-repository";
 
@@ -15,7 +16,7 @@ export class FindNotesByUser {
   async execute({ userId }: FindNotesByUserRequest): Promise<FindNotesByUserResponse> {
     const notes = await this.notesRepository.findByUserId(userId);
     if (!notes) {
-      throw new Error('Notes not found');
+      throw NotesErrors.noteNotFound('Notes not found', 404);
     }
 
     return {

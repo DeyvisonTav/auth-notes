@@ -1,3 +1,4 @@
+import { NotesErrors } from "../../errors/notes";
 import { Notes } from "../../entities/notes";
 import { NotesRepository } from "../../repositories/notes-repository";
 
@@ -18,7 +19,7 @@ export class UpdateNotes {
     const note = await this.notesRepository.findById(id);
 
     if (!note) {
-      throw new Error('Note not found');
+      throw NotesErrors.noteNotFound('Note not found', 404);
     }
 
     note.title = title;

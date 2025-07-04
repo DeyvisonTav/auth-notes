@@ -1,3 +1,4 @@
+import { UserErrors } from "../../errors/user";
 import { InMemoryUserRepository } from "../../repositories/test/in-memory-user-repository";
 import { CreateUser } from "./create-user";
 
@@ -20,5 +21,18 @@ describe("Create User", () => {
     expect(user.email).toBe("test@test.com");
     expect(user.password).toBeTruthy();
 
+  })
+
+  it("Should not be able to create a new user with an email that already exists", async () => {
+    await sut.execute({
+      email: "test@test.com",
+      name: "John Doe",
+      password: "123456",
+    })
+    await expect(sut.execute({
+      email: "test@test.com",
+      name: "John Doe",
+      password: "123456",
+    })).rejects.toThrow(UserErrors.userAlreadyExists('User already exists', 400));
   })
 })
