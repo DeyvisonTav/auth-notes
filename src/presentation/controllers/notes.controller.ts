@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Param, Put, Delete, NotFoundException } from "@nestjs/common";
+import { Controller, Post, Body, Get, Param, Put, Delete, NotFoundException, UseGuards } from "@nestjs/common";
 import { CreateNoteDto } from "../dtos/notes/create";
 import { FindByIdNoteDto } from "../dtos/notes/find-by-id";
 import { FindByUserIdDto } from "../dtos/notes/find-by-userId";
@@ -12,6 +12,7 @@ import { DeleteNote } from "../../application/use-cases/notes/delete-note";
 import { FindNotesByUser } from "../../application/use-cases/notes/find-notes-by-user";
 import { Notes } from "../../domain/entities/notes";
 import { NotesErrors } from "../../shared/errors/notes";
+import { AuthMiddleware } from "../middlewares/auth-middleware";
 
 @Controller('notes')
 export class NotesController {
@@ -25,12 +26,14 @@ export class NotesController {
   ) { }
 
   @Post()
+  @UseGuards(AuthMiddleware)
   async createNote(@Body() createNoteDto: CreateNoteDto): Promise<Notes> {
     const { notes } = await this.createNoteUseCase.execute(createNoteDto);
     return notes;
   }
 
   @Get(':id')
+  @UseGuards(AuthMiddleware)
   async findNoteById(@Param() findByIdNoteDto: FindByIdNoteDto): Promise<Notes | null> {
     const { notes } = await this.findNoteByIdUseCase.execute(findByIdNoteDto);
     if (!notes) {
@@ -40,6 +43,7 @@ export class NotesController {
   }
 
   @Put(':id')
+  @UseGuards(AuthMiddleware)
   async updateNote(@Param() updateNoteDto: UpdateNoteDto): Promise<Notes | null> {
     const { note } = await this.updateNoteUseCase.execute(updateNoteDto);
     if (!note) {
@@ -49,17 +53,20 @@ export class NotesController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthMiddleware)
   async deleteNote(@Param() deleteNoteDto: DeleteNoteDto): Promise<void> {
     await this.deleteNoteUseCase.execute(deleteNoteDto);
   }
 
   @Get('user/:userId')
+  @UseGuards(AuthMiddleware)
   async findNotesByUser(@Param() findByUserIdDto: FindByUserIdDto): Promise<Notes[]> {
     const { notes } = await this.findByUserIdUseCase.execute(findByUserIdDto);
     return notes;
   }
 
   @Get()
+  @UseGuards(AuthMiddleware)
   async findAllNotes(): Promise<Notes[]> {
     const { notes } = await this.findAllNotesUseCase.execute();
     return notes;

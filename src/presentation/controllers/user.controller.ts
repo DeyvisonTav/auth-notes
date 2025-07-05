@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, NotFoundException, Param, Post, Put } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { Body } from '@nestjs/common';
 import { CreateUser } from '../../application/use-cases/users/create-user';
 import { DeleteUser } from '../../application/use-cases/users/delete-user';
@@ -11,6 +11,7 @@ import { UpdateUserDto } from '../dtos/users/update';
 import { DeleteUserDto } from '../dtos/users/delete';
 import { User } from '../../domain/entities/user';
 import { UserErrors } from '../../shared/errors/user';
+import { AuthMiddleware } from '../middlewares/auth-middleware';
 
 @Controller('users')
 export class UserController {
@@ -28,6 +29,7 @@ export class UserController {
     return user;
   }
   @Get(':id')
+  @UseGuards(AuthMiddleware)
   async findUserById(@Param() findByIdUserDto: FindByIdUserDto): Promise<User | null> {
     const { user } = await this.findUserByIdUseCase.execute(findByIdUserDto);
     if (!user) {
@@ -37,6 +39,7 @@ export class UserController {
   }
 
   @Put(':id')
+  @UseGuards(AuthMiddleware)
   async updateUser(@Param() updateUserDto: UpdateUserDto): Promise<User | null> {
     const { user } = await this.updateUserUseCase.execute(updateUserDto);
     if (!user) {
@@ -46,11 +49,13 @@ export class UserController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthMiddleware)
   async deleteUser(@Param() deleteUserDto: DeleteUserDto): Promise<void> {
     await this.deleteUserUseCase.execute(deleteUserDto);
   }
 
   @Get()
+  @UseGuards(AuthMiddleware)
   async findAllUsers(): Promise<User[]> {
     const { users } = await this.findAllUsersUseCase.execute();
     return users;
