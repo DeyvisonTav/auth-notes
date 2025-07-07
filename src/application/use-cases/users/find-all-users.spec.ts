@@ -1,5 +1,5 @@
 import { compare } from "bcrypt";
-import { InMemoryUserRepository } from "../../../infrastructure/repositories/in-memory-user-repository"
+import { InMemoryUserRepository } from "../../../infrastructure/repositories/inMemory/in-memory-user-repository"
 import { CreateUser } from "./create-user"
 import { FindAllUsers } from "./find-all-users"
 

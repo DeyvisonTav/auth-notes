@@ -1,5 +1,5 @@
-import { InMemoryNotesRepository } from "../../../infrastructure/repositories/in-memory-notes-repository"
-import { InMemoryUserRepository } from "../../../infrastructure/repositories/in-memory-user-repository"
+import { InMemoryNotesRepository } from "../../../infrastructure/repositories/inMemory/in-memory-notes-repository"
+import { InMemoryUserRepository } from "../../../infrastructure/repositories/inMemory/in-memory-user-repository"
 import { CreateNotes } from "../notes/create-notes"
 import { CreateUser } from "../users/create-user"
 import { FindNotesByUser } from "./find-notes-by-user"

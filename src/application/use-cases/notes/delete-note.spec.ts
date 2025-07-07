@@ -1,7 +1,7 @@
-import { InMemoryNotesRepository } from "../../../infrastructure/repositories/in-memory-notes-repository"
+import { InMemoryNotesRepository } from "../../../infrastructure/repositories/inMemory/in-memory-notes-repository"
 import { DeleteNote } from "./delete-note"
 import { CreateNotes } from "./create-notes"
-import { InMemoryUserRepository } from "../../../infrastructure/repositories/in-memory-user-repository";
+import { InMemoryUserRepository } from "../../../infrastructure/repositories/inMemory/in-memory-user-repository";
 import { NotesErrors } from "../../../shared/errors/notes";
 import { CreateUser } from "../users/create-user";
 

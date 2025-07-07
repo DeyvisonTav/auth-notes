@@ -1,4 +1,4 @@
-import { InMemoryUserRepository } from "../../../infrastructure/repositories/in-memory-user-repository"
+import { InMemoryUserRepository } from "../../../infrastructure/repositories/inMemory/in-memory-user-repository"
 import { compare } from "bcrypt"
 import { CreateUser } from "./create-user"
 import { UpdateUsers } from "./update-users"

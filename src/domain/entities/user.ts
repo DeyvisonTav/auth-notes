@@ -3,6 +3,7 @@ import { Notes } from "./notes";
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm";
 
 interface UserProps {
+  id?: string;
   name: string;
   email: string;
   password: string;
@@ -25,6 +26,11 @@ export class User extends EntityType<UserProps> {
   private _updatedAt: Date;
   @OneToMany(() => Notes, (note) => note.userId)
   private _notes: Notes[];
+
+
+  get id(): string {
+    return this.props?.id || '';
+  }
 
   get name(): string {
     return this.props?.name || '';

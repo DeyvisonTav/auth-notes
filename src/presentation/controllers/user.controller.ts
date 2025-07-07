@@ -10,7 +10,6 @@ import { FindByIdUserDto } from '../dtos/users/find-by-id';
 import { UpdateUserDto } from '../dtos/users/update';
 import { DeleteUserDto } from '../dtos/users/delete';
 import { User } from '../../domain/entities/user';
-import { UserErrors } from '../../shared/errors/user';
 import { AuthMiddleware } from '../middlewares/auth-middleware';
 
 @Controller('users')
@@ -32,9 +31,6 @@ export class UserController {
   @UseGuards(AuthMiddleware)
   async findUserById(@Param() findByIdUserDto: FindByIdUserDto): Promise<User | null> {
     const { user } = await this.findUserByIdUseCase.execute(findByIdUserDto);
-    if (!user) {
-      throw UserErrors.userNotFound('User not found', 404);
-    }
     return user;
   }
 
@@ -42,9 +38,6 @@ export class UserController {
   @UseGuards(AuthMiddleware)
   async updateUser(@Param() updateUserDto: UpdateUserDto): Promise<User | null> {
     const { user } = await this.updateUserUseCase.execute(updateUserDto);
-    if (!user) {
-      throw UserErrors.userNotFound('User not found', 404);
-    }
     return user;
   }
 

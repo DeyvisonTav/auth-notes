@@ -1,4 +1,4 @@
-import { InMemoryUserRepository } from "../../../infrastructure/repositories/in-memory-user-repository"
+import { InMemoryUserRepository } from "../../../infrastructure/repositories/inMemory/in-memory-user-repository"
 import { AuthUsers } from "./auth-users"
 import { CreateUser } from "../users/create-user"
 import { JwtService } from "./jwt.service"

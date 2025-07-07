@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Param, Put, Delete, NotFoundException, UseGuards } from "@nestjs/common";
+import { Controller, Post, Body, Get, Param, Put, Delete, UseGuards } from "@nestjs/common";
 import { CreateNoteDto } from "../dtos/notes/create";
 import { FindByIdNoteDto } from "../dtos/notes/find-by-id";
 import { FindByUserIdDto } from "../dtos/notes/find-by-userId";
@@ -11,7 +11,6 @@ import { UpdateNotes } from "../../application/use-cases/notes/update-notes";
 import { DeleteNote } from "../../application/use-cases/notes/delete-note";
 import { FindNotesByUser } from "../../application/use-cases/notes/find-notes-by-user";
 import { Notes } from "../../domain/entities/notes";
-import { NotesErrors } from "../../shared/errors/notes";
 import { AuthMiddleware } from "../middlewares/auth-middleware";
 
 @Controller('notes')
@@ -36,9 +35,6 @@ export class NotesController {
   @UseGuards(AuthMiddleware)
   async findNoteById(@Param() findByIdNoteDto: FindByIdNoteDto): Promise<Notes | null> {
     const { notes } = await this.findNoteByIdUseCase.execute(findByIdNoteDto);
-    if (!notes) {
-      throw NotesErrors.noteNotFound('Note not found', 404);
-    }
     return notes;
   }
 
@@ -46,9 +42,6 @@ export class NotesController {
   @UseGuards(AuthMiddleware)
   async updateNote(@Param() updateNoteDto: UpdateNoteDto): Promise<Notes | null> {
     const { note } = await this.updateNoteUseCase.execute(updateNoteDto);
-    if (!note) {
-      throw NotesErrors.noteNotFound('Note not found', 404);
-    }
     return note;
   }
 

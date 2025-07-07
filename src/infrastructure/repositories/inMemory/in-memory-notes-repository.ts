@@ -1,5 +1,5 @@
-import { Notes } from "../../domain/entities/notes";
-import { NotesRepository } from "../../domain/repositories/notes-repository";
+import { Notes } from "../../../domain/entities/notes";
+import { NotesRepository } from "../../../domain/repositories/notes-repository";
 
 export class InMemoryNotesRepository extends NotesRepository {
   private notes: Notes[] = []

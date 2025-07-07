@@ -2,6 +2,7 @@ import { Entity as EntityType } from "../../shared/types/entity";
 import { Column, UpdateDateColumn, CreateDateColumn, Entity } from "typeorm";
 
 interface NotesProps {
+  id?: string;
   title: string;
   content: string;
   createdAt: Date;
@@ -21,6 +22,10 @@ export class Notes extends EntityType<NotesProps> {
   private _updatedAt: Date;
   @Column({ type: 'uuid', name: 'user_id' })
   private _userId: string;
+
+  get id(): string {
+    return this.props?.id || '';
+  }
 
   get title(): string {
     return this.props?.title || '';

@@ -1,4 +1,4 @@
-import { InMemoryUserRepository } from "../../../infrastructure/repositories/in-memory-user-repository";
+import { InMemoryUserRepository } from "../../../infrastructure/repositories/inMemory/in-memory-user-repository";
 import { FindByIdUser } from "./find-by-id-user";
 import { CreateUser } from "./create-user";
 import { UserErrors } from "../../../shared/errors/user";
