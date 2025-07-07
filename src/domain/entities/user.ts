@@ -28,9 +28,6 @@ export class User extends EntityType<UserProps> {
   private _notes: Notes[];
 
 
-  get id(): string {
-    return this.props?.id || '';
-  }
 
   get name(): string {
     return this.props?.name || '';

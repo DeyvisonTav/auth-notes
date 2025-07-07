@@ -23,9 +23,6 @@ export class Notes extends EntityType<NotesProps> {
   @Column({ type: 'uuid', name: 'user_id' })
   private _userId: string;
 
-  get id(): string {
-    return this.props?.id || '';
-  }
 
   get title(): string {
     return this.props?.title || '';
